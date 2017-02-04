@@ -26,7 +26,7 @@ def test_stations_by_distance():
 
     test_res = stations_by_distance(test_stations,(0.0,0.0))
 
-    assert [i[0] for i in test_res] == [b,a,e,c,d]
+    assert [i[0] for i in test_res] == [a,b,e,c,d]
 
 def test_stations_within_radius():
 
