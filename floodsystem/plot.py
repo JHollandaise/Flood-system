@@ -13,15 +13,17 @@ def plot_water_levels(station, dates, levels):
         print("{} {} {}".format(len(station),len(dates),len(levels)))
         return None
 
+    to_del=None
     for i in range(len(station)):
         if not len(dates[i])==len(levels[i]):
             print(station[i].name,"has incorrect dates/levels data")
             print("date_len",len(dates[i]),"levels_len",len(levels[i]))
             to_del = i
 
-    del station[to_del]
-    del dates[to_del]
-    del levels[to_del]
+    if to_del!=None:
+        del station[to_del]
+        del dates[to_del]
+        del levels[to_del]
 
 
     for i in range(len(station)):
@@ -59,7 +61,7 @@ def plot_water_level_with_fit(station, dates, levels, p):
         print("{} {} {}".format(len(station),len(dates),len(levels)))
         return None
 
-    to_del = 0
+    to_del = None
     for i in range(len(station)):
         print("date_len",len(dates[i]),"levels_len",len(levels[i]))
         if not len(dates[i])==len(levels[i]):
@@ -67,7 +69,7 @@ def plot_water_level_with_fit(station, dates, levels, p):
             print("date_len",len(dates[i]),"levels_len",len(levels[i]))
             to_del = i
 
-    if to_del:
+    if to_del!=None:
         del station[to_del]
         del dates[to_del]
         del levels[to_del]
