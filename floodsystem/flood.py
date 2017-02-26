@@ -10,9 +10,11 @@ def stations_level_over_threshold(stations, tol):
     water levels above the tolerance tol.
     """
 
-    return sorted_by_key([(station,station.relative_water_level())\
+    unsorted_st_over = [(station,station.relative_water_level())\
     for station in stations if station.relative_water_level()\
-    and station.relative_water_level()>tol],1,True)
+    and station.relative_water_level()>tol]
+
+    return sorted_by_key(unsorted_st_over,1,True)
 
 def stations_highest_rel_level(stations, N):
     """Returns the N stations, sorted in descending order, with the highest

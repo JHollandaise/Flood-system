@@ -47,7 +47,6 @@ def plot_water_levels(station, dates, levels):
 
     # Display plot
     plt.tight_layout()  # This makes sure plot does not cut off date labels
-    plt.show()
 
 
 def plot_water_level_with_fit(station, dates, levels, p):
@@ -63,7 +62,6 @@ def plot_water_level_with_fit(station, dates, levels, p):
 
     to_del = None
     for i in range(len(station)):
-        print("date_len",len(dates[i]),"levels_len",len(levels[i]))
         if not len(dates[i])==len(levels[i]):
             print(station[i].name,"has incorrect dates/levels data")
             print("date_len",len(dates[i]),"levels_len",len(levels[i]))
@@ -104,4 +102,3 @@ def plot_water_level_with_fit(station, dates, levels, p):
 
     # Display plot
     plt.tight_layout()  # This makes sure plot does not cut off date labels
-    plt.show()
