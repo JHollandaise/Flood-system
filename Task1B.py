@@ -1,17 +1,22 @@
 from floodsystem.stationdata import build_station_list
 from floodsystem.geo import stations_by_distance
 
+
 def run():
+    """Requirements for Task 1B"""
 
-    stationdists = stations_by_distance(build_station_list(),(52.2053,0.1218))
+    stations = build_station_list()
 
-    print_list=[(stationdist[0].name,stationdist[0].town,stationdist[1]) \
-    for stationdist in stationdists]
+    stations_by_dist = stations_by_distance(stations,(52.2053,0.1218))
 
-    print([:10])
-    print([-10:])
+    printlist = [(item[0].name,item[0].town,item[1]) for item in stations_by_dist]
 
-if __name__=="__main__":
+
+    print(printlist[:10])
+    print(printlist[-10:])
+
+if __name__ == "__main__":
+    print("*** Task 1B: CUED Part IB Flood Warning System ***")
 
     # Run Task1B
     run()

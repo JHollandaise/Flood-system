@@ -2,6 +2,7 @@
 
 """
 
+import math
 
 def sorted_by_key(x, i, reverse=False):
     """For a list of lists/tuples, return list sorted by the ith
@@ -25,23 +26,21 @@ def sorted_by_key(x, i, reverse=False):
 
     return sorted(x, key=key, reverse=reverse)
 
-import math
 
-def conv_to_rads(coord):
+
+def rad_conv(coord):
     """Converts coordinates from degrees into radians"""
-    return (coord[0]*math.pi/180,coord[1]*math.pi/180)
+    return (coord[0]*math.pi/180, coord[1]*math.pi/180)
 
-def curve_dist(c1,c2,radians=False):
-    """Returns the distance (km) between two coordinates
-    along a great circle of a sphere
-    """
+def curve_dist(coord1,coord2,radians=False):
+    """uses the haversine formula to calculate the distance between two sets of coordinates"""
 
-    if not radians:
-        c1 = conv_to_rads(c1)
-        c2 = conv_to_rads(c2)
+    if radians==False:
+        coord1 = rad_conv(coord1)
+        coord2  =rad_conv(coord2)
 
-    # Radius of Earth (km)
-    r = 6371
+    # R equals radius of earth in km
+    R = 6371.0088
 
-    return 2*r*math.asin(( math.sqrt(math.sin((c1[0]-c2[0])/2)**2 + \
-    math.cos(c1[0])*math.cos(c2[0])*math.sin((c1[1]-c2[1])/2)**2) ))
+    return 2*R*math.asin(math.sqrt(math.sin((coord2[0]-coord1[0])/2)**2 + \
+    math.cos(coord1[0])*math.cos(coord2[0])*math.sin((coord2[1] - coord1[1])/2)**2))

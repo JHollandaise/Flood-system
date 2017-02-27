@@ -13,16 +13,13 @@ def stations_by_distance(stations, p):
     List is sorted by increasing distance.
     """
 
-    return sorted_by_key([(station,curve_dist(station.coord,p)) for station \
-    in stations],1)
-
+    return sorted_by_key([(station,curve_dist(p,station.coord)) for station in stations],1)
 
 def stations_within_radius(stations, centre, r):
     """Returns all stations from given list of stations within
     radius r(km) of point centre(lat,long)."""
 
-    return [station for station in stations\
-    if curve_dist(station.coord,centre)<r]
+    return [station for station in stations if curve_dist(station.coord,centre)<r]
 
 def rivers_with_station(stations):
     """Returns a set of names of rivers with a station
@@ -45,22 +42,21 @@ def stations_by_river(stations):
     return rivers
 
 def rivers_by_station_number(stations, N):
-    """Determines the N rivers with the greatest number of stations (if there
-    are more rivers with the same number of stations as the Nth station, these
-    will be included in the result)
-    Returns a sorted list of ('river name',number of stations) tuples
-    """
+    """Returns a list of the N rivers with the
+    greatest number of monitoring stations"""
 
-    rivers = stations_by_river(stations)
+    stations_b_r = stations_by_river(stations)
 
-    rivers_by_num = sorted_by_key([(river,len(rivers[river]))\
-    for river in rivers],1,True)
 
-    n_rivers_by_num = []
+    number_of_stations = sorted_by_key([(river,len(stations)) for river, stations in stations_b_r.items()],1,True)
 
-    for e in rivers_by_num:
-        if len(n_rivers_by_num)>=N and e[1]!=n_rivers_by_num[-1][1]:
+    print_nos = number_of_stations[:N]
+    i = N+1
+    while True:
+        if print_nos[-1][1] == number_of_stations[i][1]:
+            print_nos.append(number_of_stations[i])
+            i+=1
+        else:
             break
-        n_rivers_by_num.append(e)
 
-    return n_rivers_by_num
+    return print_nos

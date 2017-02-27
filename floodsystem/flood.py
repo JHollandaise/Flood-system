@@ -1,26 +1,47 @@
-"""This module provides functions relating to the risk of
-flooding for rivers using latest lavel data.
+"""This module contains a collection of functions related to
+flood data.
+
 """
+
 
 from .utils import sorted_by_key
 
 def stations_level_over_threshold(stations, tol):
-    """Returns a list of tuples (station,relative water level)
-    sorted in descending water level for stations with relative
-    water levels above the tolerance tol.
-    """
+    """Returns a list of stations with a relative
+    water level higher than a tolerance value"""
 
-    unsorted_st_over = [(station,station.relative_water_level())\
-    for station in stations if station.relative_water_level()\
-    and station.relative_water_level()>tol]
+    stations_lot=[]
 
-    return sorted_by_key(unsorted_st_over,1,True)
+    for station in stations:
+        if station.relative_water_level()==None:
+            continue
+
+        elif station.relative_water_level()>tol:
+            stations_lot.append((station,station.relative_water_level()))
+
+
+
+    return sorted_by_key(stations_lot,1,True)
 
 def stations_highest_rel_level(stations, N):
-    """Returns the N stations, sorted in descending order, with the highest
-    relative water level
-    """
+    """Returns a list of the N stations with the
+    greatest relative water level"""
 
-    return sorted([station for station in stations],\
-    key=lambda element: element.relative_water_level()\
-    if element.relative_water_level() else -100,reverse=True)[:N]
+    stations_hrl=[]
+
+    for station in stations:
+        if station.relative_water_level()==None:
+            continue
+
+        else:
+            stations_hrl.append(station)
+
+
+
+    highest_relative_level=sorted(stations_hrl,key=lambda element:\
+    element.relative_water_level() if element.relative_water_level()\
+    else -100,reverse=True)
+
+    print_hrl=highest_relative_level[:N]
+
+    return print_hrl

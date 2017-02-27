@@ -21,8 +21,6 @@ class MonitoringStation:
 
         # Coordinates are in form (latitude, longitude)
         self.coord = coord
-
-        # Typical range in the form (low,high)
         self.typical_range = typical_range
         self.river = river
         self.town = town
@@ -51,22 +49,21 @@ class MonitoringStation:
 
         return True
 
-
     def relative_water_level(self):
-        """Returns a ratio of latest water level compared to typical ranges
-        where 1 => max of typical range
-              0 => min of typical range
-        """
+        """returns the latest water level as a fraction of the typical range.
+        1.0 corresponds to a level at the typical high.
+        0.0 corresponds to a level at the typical low"""
 
-        if not self.typical_range_consistent():
+        if self.typical_range_consistent()==False:
             return None
 
         try:
-             return (self.latest_level-self.typical_range[0])/\
-             (self.typical_range[1]-self.typical_range[0])
+            return (self.latest_level-self.typical_range[0])/(self.typical_range[1]-self.typical_range[0])
 
         except:
             return None
+
+
 
 
 def inconsistent_typical_range_stations(stations):
