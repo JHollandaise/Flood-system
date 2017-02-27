@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
+from .analysis import polyfit
 
 def plot_water_levels(station, dates, levels):
     """Plots water levels for given station list, dates and levels lists
